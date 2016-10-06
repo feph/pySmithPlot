@@ -131,9 +131,9 @@ class SmithAxes(Axes):
                        "axes.impedance": 50,
                        "axes.normalize": True,
                        "axes.normalize.label": True,
-                       "symbol.infinity": "∞ ",  # BUG: symbol gets cut off without end-space
+                       "symbol.infinity": u"∞ ",  # BUG: symbol gets cut off without end-space
                        "symbol.infinity.correction": 8,
-                       "symbol.ohm": "Ω"}
+                       "symbol.ohm": u"Ω"}
 
     @staticmethod
     def update_scParams(sc_dict=None, instance=None, filter_dict=False, reset=True, **kwargs):
@@ -549,7 +549,7 @@ class SmithAxes(Axes):
     def drag_pan(self, button, key, x, y):
         pass
 
-    def _moebius_z(self, *args, normalize=None):
+    def _moebius_z(self, *args, **kwargs):
         '''
         Basic transformation. 
         
@@ -572,11 +572,13 @@ class SmithAxes(Axes):
                 Performs w = (z - k) / (z + k) with k = 'axes.scale' 
                 Type: Complex number or numpy.ndarray with dtype=complex
         '''
-        normalize = self._normalize if normalize is None else normalize
-        norm = 1 if normalize else self._impedance
+        if 'normalize' in kwargs and kwargs['normalize'] == True:
+            norm = self._impedance
+        else:
+            norm = 1
         return smithhelper.moebius_z(*args, norm=norm)
 
-    def _moebius_inv_z(self, *args, normalize=None):
+    def _moebius_inv_z(self, *args, **kwargs):
         '''
         Basic inverse transformation. 
         
@@ -599,8 +601,10 @@ class SmithAxes(Axes):
                 Performs w = k * (1 - z) / (1 + z) with k = 'axes.scale' 
                 Type: Complex number or numpy.ndarray with dtype=complex
         '''
-        normalize = self._normalize if normalize is None else normalize
-        norm = 1 if normalize else self._impedance
+        if 'normalize' in kwargs and kwargs['normalize']:
+            norm = self._impedance
+        else:
+            norm = 1
         return smithhelper.moebius_inv_z(*args, norm=norm)
 
     def real_interp1d(self, x, steps):

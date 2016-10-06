@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 import shutil
@@ -70,7 +71,7 @@ def tb_grid_styles():
                     major_str = "fancy" if major_fancy else "standard"
                     minor_str = "off" if not minor else "fancy" if minor_fancy else "standard"
 
-                    plot_example(tb, "Major: %s - Minor: %s" % (major_str, minor_str))
+                    plot_example(tb, u"Major: %s - Minor: %s" % (major_str, minor_str))
 
     savefig(tb)
 
@@ -85,7 +86,7 @@ def tb_fancy_grids():
         i += 1
         pp.subplot(2, 3, i, projection="smith",
                    grid_major_fancy_threshold=threshold)
-        plot_example(tb, "Major Threshold=(%d, %d)" % threshold)
+        plot_example(tb, u"Major Threshold=(%d, %d)" % threshold)
 
     for threshold in [15, 30, 60]:
         i += 1
@@ -93,7 +94,7 @@ def tb_fancy_grids():
                    grid_minor_fancy=True,
                    grid_minor_enable=True,
                    grid_minor_fancy_threshold=threshold)
-        plot_example(tb, "Minor Threshold=%d" % threshold)
+        plot_example(tb, u"Minor Threshold=%d" % threshold)
 
     savefig(tb)
 
@@ -108,13 +109,13 @@ def tb_grid_locators():
         i += 1
         pp.subplot(2, 4, i, projection="smith",
                    grid_major_xmaxn=num)
-        plot_example(tb, "Max real steps: %d" % num)
+        plot_example(tb, u"Max real steps: %d" % num)
 
     for num in [6, 14, 25, 50]:
         i += 1
         pp.subplot(2, 4, i, projection="smith",
                    grid_major_ymaxn=num)
-        plot_example(tb, "Max imaginary steps: %d" % num)
+        plot_example(tb, u"Max imaginary steps: %d" % num)
 
     savefig(tb)
 
@@ -131,7 +132,7 @@ def tb_normalize():
             pp.subplot(2, 3, i, projection="smith",
                        axes_impedance=impedance,
                        axes_normalize=normalize)
-            plot_example(tb, "Impedance: %d Ω — Normalize: %s" % (impedance, normalize))
+            plot_example(tb, u"Impedance: %d Ω — Normalize: %s" % (impedance, normalize))
 
     savefig(tb)
 
@@ -170,7 +171,7 @@ def tb_markers():
             else:
                 return "'%s'" % x
 
-        plot_example(tb, "HackLines: %s - StartMarker: %s\nEndMarker: %s - Rotate: %s" % tuple(map(ptype, [hackline, startmarker, endmarker, rotate_marker])), markersize=10)
+        plot_example(tb, u"HackLines: %s - StartMarker: %s\nEndMarker: %s - Rotate: %s" % tuple(map(ptype, [hackline, startmarker, endmarker, rotate_marker])), markersize=10)
 
     savefig(tb)
 
@@ -187,7 +188,7 @@ def tb_interpolation():
                                       [False, 50]]:
         i += 1
         pp.subplot(2, 2, i, projection="smith")
-        plot_example(tb, "Interpolation: %s — Equipoints: %s" % ("False" if interpolation is False else interpolation,
+        plot_example(tb, u"Interpolation: %s — Equipoints: %s" % ("False" if interpolation is False else interpolation,
                                                                  "False" if equipoints is False else equipoints), interpolate=interpolation, equipoints=equipoints)
 
     savefig(tb)
@@ -200,7 +201,7 @@ def tb_misc():
 
     pp.subplot(2, 3, 1, projection="smith",
                plot_marker_hack=True)
-    plot_example(tb, "Legend")
+    plot_example(tb, u"Legend")
     pp.legend(["S11", "S22", "Polyline", "Z \u2192 0.125l/\u03BB"])
 
     divs = [1, 3, 7]
@@ -208,25 +209,25 @@ def tb_misc():
                grid_minor_enable=True,
                grid_minor_fancy=True,
                grid_minor_fancy_dividers=divs)
-    plot_example(tb, "Minor fancy dividers=%s" % divs)
+    plot_example(tb, u"Minor fancy dividers=%s" % divs)
 
     pp.subplot(2, 3, 3, projection="smith",
                axes_radius=0.3)
-    plot_example(tb, "Axes radius: 0.25")
+    plot_example(tb, u"Axes radius: 0.25")
 
     pp.subplot(2, 3, 4, projection="smith",
                symbol_infinity="Inf",
                symbol_infinity_correction=0,
                symbol_ohm="Ohm")
-    plot_example(tb, "Infinity symbol: 'Inf' — Ohm symbol: Ohm")
+    plot_example(tb, u"Infinity symbol: 'Inf' — Ohm symbol: Ohm")
 
     pp.subplot(2, 3, 5, projection="smith",
                grid_locator_precision=4)
-    plot_example(tb, "Grid Locator Precision: 4")
+    plot_example(tb, u"Grid Locator Precision: 4")
 
     pp.subplot(2, 3, 6, projection="smith",
                axes_xlabel_rotation=0)
-    plot_example(tb, "Axes X Label Rotation: 0")
+    plot_example(tb, u"Axes X Label Rotation: 0")
 
     savefig(tb)
 
